@@ -1,7 +1,13 @@
+# my changes
+*.ipynb 
+data/
+product/
+twitter_cikm_2010.zip
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
 
 # C extensions
 *.so

@@ -1,0 +1,13 @@
+meta:
+    extract_upstream: false
+
+tasks:
+    
+    - source: scripts/get/txt_to_parquet.ipynb
+      upstream: []
+      name: txt_to_parquet
+      product: 
+        nb: product/get/txt_to_parquet.ipynb
+        data: product/get/tweets.parquet
+      params:
+        file_paths: ["data/Cheng-Caverlee-Lee/training_set_tweets.txt", "data/Cheng-Caverlee-Lee/test_set_tweets.txt"]
