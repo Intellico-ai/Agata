@@ -3,6 +3,8 @@
 data/
 product/
 twitter_cikm_2010.zip
+chroma/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

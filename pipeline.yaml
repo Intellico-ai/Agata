@@ -11,3 +11,16 @@ tasks:
         data: product/get/tweets.parquet
       params:
         file_paths: ["data/Cheng-Caverlee-Lee/training_set_tweets.txt", "data/Cheng-Caverlee-Lee/test_set_tweets.txt"]
+    
+    - source: scripts/exploration/explore_tweets.ipynb
+      upstream: [txt_to_parquet]
+      product:
+        nb: product/exploration/explore_tweets.ipynb
+    
+    - source: scripts/exploration/rag_tweet.ipynb
+      upstream: [txt_to_parquet]
+      name: rag_tweet
+      product:
+        nb: scripts/exploration/rag_tweet.ipynb
+        
+      
