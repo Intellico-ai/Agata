@@ -33,6 +33,7 @@ product = {
 # %%
 import re
 from tqdm.auto import tqdm, trange
+from datetime import datetime
 
 # Regular expression pattern
 pattern = r"^(\d+)\s+(\d+)\s+@([^\s]+)\s+([^\n]+)\s+(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})$"
@@ -65,6 +66,7 @@ for file_path in file_paths:
                         "content": string_with_spaces_and_punctuation,
                         "Date": date,
                         "Time": time,
+                        "timestamp":datetime.strptime(date + " " + time, "%Y-%m-%d %H:%M:%S")
                     }
                 )
 

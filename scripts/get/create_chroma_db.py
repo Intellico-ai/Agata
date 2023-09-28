@@ -103,6 +103,7 @@ metadata = [
         "ID_2": int(df["ID_2"].iloc[i]),
         "handle": df["handle"].iloc[i],
         "timestamp": df["timestamp"].iloc[i].timestamp(),
+        "lenght": len(df["content"].iloc[i]),
     }
     for i in trange(len(df))
 ]
@@ -133,20 +134,4 @@ for i in trange(0, len(emb), INSERT_BS):
         embeddings=embeddings,
         metadatas=meta,
         documents=df["content"].iloc[i : i + INSERT_BS].to_list(),
-    )
-
-
-# %%
-collection.query(query_embeddings=[embedder_model.encode("Movie").tolist()])[
-    "documents"
-]
-
-# %%
-INSERT_BS = 10000
-for i in trange(0, len(res["ids"]), INSERT_BS):
-    ids = res["ids"][i : i + INSERT_BS]
-    meta = res["metadatas"][i : i + INSERT_BS]
-    docsearch = collection.update(
-        ids=ids,
-        meta=meta,
     )
