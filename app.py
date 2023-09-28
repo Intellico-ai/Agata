@@ -18,40 +18,6 @@ import matplotlib.pyplot as plt
 
 from lib import metrics
 
-
-# tweets = [
-#     "Just started learning #Python today. Excited to dive into the world of coding!",
-#     "Woke up early to catch the sunrise. Nature's beauty never ceases to amaze me. 🌅 #NatureLover",
-#     "Spent the evening reading a great book. There's nothing like getting lost in a good story. 📚 #Bookworm",
-#     "Coding late into the night. The world of technology never sleeps! 💻 #Programming",
-#     "Just had the most delicious meal at my favorite restaurant. 😋 #Foodie",
-#     "Workout complete! Feeling strong and motivated. 💪 #FitnessGoals",
-#     "Visited a new art exhibit today. Art has a unique way of inspiring creativity. 🎨 #ArtLover",
-#     "Sundays are for relaxation and self-care. How do you unwind on the weekend? #SelfCareSunday",
-#     "Hiking through the mountains today. The views are breathtaking. ⛰️ #Adventure",
-#     "Cooked a homemade meal from scratch. It's all about the love you put into it. #Cooking",
-#     "Just watched a thought-provoking documentary. It's essential to stay informed and open-minded. 📽️ #Documentary",
-#     "Met up with old friends for a reunion. Laughter and nostalgia filled the air. 👫 #Friendship",
-#     "Started a new hobby: gardening! Watching plants grow is so satisfying. 🌱 #Gardening",
-#     "Grateful for the little things in life: a warm cup of tea and a cozy blanket on a rainy day. ☕🌧️ #Gratitude",
-#     "Exploring a new city today. Travel broadens the mind and feeds the soul. 🌍 #Travel",
-#     "Friday night movie marathon with popcorn and pajamas. The perfect way to unwind. 🍿🎬 #MovieNight",
-#     "Learning a new language is both challenging and rewarding. 🌏 #LanguageLearning",
-#     "Taking a break from screens to enjoy some quality time with family. 👨‍👩‍👧‍👦 #FamilyTime",
-#     "Attended an inspiring conference today. Knowledge is power! 📚 #Education",
-#     "Staying positive and focused on my goals. Every day is a new opportunity. 💪 #Motivation",
-#     "Just adopted a rescue pet. Welcome to the family, furry friend! 🐾 #PetLove",
-#     "Spent the weekend in the great outdoors, camping and stargazing. 🏕️✨ #Nature",
-#     "Sometimes, all you need is a good cup of coffee to kickstart the day. ☕ #CoffeeLover",
-#     "Volunteered at the local shelter today. Small acts of kindness can make a big difference. 🤝 #Volunteer",
-#     "Feeling inspired by the beauty of the natural world. Let's protect our planet for future generations. 🌎 #Environment",
-#     "Set a new personal record at the gym today. Hard work pays off! 💪 #Fitness",
-#     "Cooked up a storm in the kitchen and invited friends over for a feast. Good food, good company. 🍽️ #Foodie",
-#     "Took a spontaneous road trip with no destination in mind. Sometimes, the best adventures are unplanned. 🚗 #Adventure",
-#     "Rediscovered the joy of reading. Books have the power to transport us to different worlds. 📖 #Reading",
-#     "Spent the day at the beach, soaking up the sun and listening to the waves. 🏖️ #BeachDay",
-# ]
-
 # Parameters
 chroma_collection = "Tweets"
 reset_collection = True
