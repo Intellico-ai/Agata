@@ -1,31 +1,32 @@
-# %%
-# Add description here
-#
+# ---
+# jupyter:
+#   jupytext:
+#     notebook_metadata_filter: ploomber
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.15.2
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
+#   ploomber:
+#     injected_manually: true
+# ---
 
-# %%
-# Uncomment the next two lines to enable auto reloading for imported modules
-# %load_ext autoreload
-# %autoreload 2
-# For more info, see:
-# https://docs.ploomber.io/en/latest/user-guide/faq_index.html#auto-reloading-code-in-jupyter
+# %% tags=["parameters"]
+# add default values for parameters here
 
-# %%
-# If this task has dependencies, declare them in the YAML spec and leave this
-# as None
-upstream = None
-
-# This is a placeholder, leave it as None
-product = None
-
-# %%
+# %% tags=["injected-parameters"]
 # Parameters
 upstream = {
     "txt_to_parquet": {
-        "nb": "/home/ubuntu/NGI-Search-Demo/product/get/txt_to_parquet.ipynb",
-        "data": "/home/ubuntu/NGI-Search-Demo/product/get/tweets.parquet",
+        "nb": "/home/ubuntu/Agata/product/get/txt_to_parquet.ipynb",
+        "data": "/home/ubuntu/Agata/product/get/tweets.parquet",
     }
 }
-product = {"nb": "/home/ubuntu/NGI-Search-Demo/scripts/exploration/rag_tweet.ipynb"}
+product = {"nb": "/home/ubuntu/Agata/scripts/exploration/rag_tweet.ipynb"}
 
 
 # %%
@@ -55,15 +56,15 @@ collection = chroma_client.get_or_create_collection(name=collection_name)
 # %%
 from langchain.chains import RetrievalQA
 from langchain.document_loaders import TextLoader
-from langchain.text_splitter import CharacterTextSplitter,MarkdownHeaderTextSplitter
+from langchain.text_splitter import CharacterTextSplitter, MarkdownHeaderTextSplitter
 from langchain.vectorstores import Chroma
 from torch import cuda
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 
 # %%
-embed_model_id = 'sentence-transformers/all-MiniLM-L6-v2'
+embed_model_id = "sentence-transformers/all-MiniLM-L6-v2"
 
-device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
+device = f"cuda:{cuda.current_device()}" if cuda.is_available() else "cpu"
 
 # %%
 print(device)
@@ -71,37 +72,45 @@ print(device)
 # %%
 embed_model = HuggingFaceEmbeddings(
     model_name=embed_model_id,
-    model_kwargs={'device': device},
-    encode_kwargs={'device': device, 'batch_size': 1024},
-    multi_process=False
+    model_kwargs={"device": device},
+    encode_kwargs={"device": device, "batch_size": 1024},
+    multi_process=False,
 )
 
 # %%
-docs = [
-    "Uncle Pear",
-    "Mom"
-]
+docs = ["Uncle Pear", "Mom"]
 
 embeddings = embed_model.embed_documents(docs)
 
-print(f"We have {len(embeddings)} doc embeddings, each with "
-      f"a dimensionality of {len(embeddings[0])}.")
+print(
+    f"We have {len(embeddings)} doc embeddings, each with "
+    f"a dimensionality of {len(embeddings[0])}."
+)
 
 # %%
-from datetime import datetime 
+from datetime import datetime
 from tqdm.auto import trange, tqdm
-metadata = [{
-    "ID_1":int(df["ID_1"].iloc[i]),
-    "ID_2":int(df["ID_2"].iloc[i]),
-    "handle":df["handle"].iloc[i],
-    # "timestamp":datetime.strptime(df["Date"].iloc[i] + " " + df["Time"].iloc[i], "%Y-%m-%d %H:%M:%S")
-} for i in trange(len(df))]
+
+metadata = [
+    {
+        "ID_1": int(df["ID_1"].iloc[i]),
+        "ID_2": int(df["ID_2"].iloc[i]),
+        "handle": df["handle"].iloc[i],
+        # "timestamp":datetime.strptime(df["Date"].iloc[i] + " " + df["Time"].iloc[i], "%Y-%m-%d %H:%M:%S")
+    }
+    for i in trange(len(df))
+]
 
 # %%
-docsearch = Chroma.from_texts(df["content"], embed_model, metadatas=metadata, collection_name=collection_name,)
+docsearch = Chroma.from_texts(
+    df["content"],
+    embed_model,
+    metadatas=metadata,
+    collection_name=collection_name,
+)
 
 # %%
-documents = docsearch.search("Musician", search_type="similarity",  k=20)
+documents = docsearch.search("Musician", search_type="similarity", k=20)
 
 # %%
 import guidance
@@ -114,21 +123,26 @@ from transformers import AutoModelForCausalLM
 # %%
 bnb_config = transformers.BitsAndBytesConfig(
     load_in_4bit=True,
-    bnb_4bit_quant_type='nf4',
+    bnb_4bit_quant_type="nf4",
     bnb_4bit_use_double_quant=True,
-    bnb_4bit_compute_dtype=bfloat16
+    bnb_4bit_compute_dtype=bfloat16,
 )
 
-hugging_face_token = os.environ.get('HUGGING_FACE_HUB_TOKEN')
-model_id = 'meta-llama/Llama-2-13b-hf'
+hugging_face_token = os.environ.get("HUGGING_FACE_HUB_TOKEN")
+model_id = "meta-llama/Llama-2-13b-hf"
 
-llm =guidance.llms.Transformers(model_id, quantization_config=bnb_config, temperature=0.1)
+llm = guidance.llms.Transformers(
+    model_id, quantization_config=bnb_config, temperature=0.1
+)
 
 # %%
 import guidance
+
 guidance.llm = llm
-program = guidance("""The uncle pear is one of the most{{gen 'adjectives' stop="\\n-" temperature=0.7 max_tokens=10}}.
-In fact, he fought in the battle of {{gen 'battle' stop="\\n-" temperature=0.7 max_tokens=1}} """)
+program = guidance(
+    """The uncle pear is one of the most{{gen 'adjectives' stop="\\n-" temperature=0.7 max_tokens=10}}.
+In fact, he fought in the battle of {{gen 'battle' stop="\\n-" temperature=0.7 max_tokens=1}} """
+)
 executed = program()
 
 
@@ -142,7 +156,8 @@ valid_weapons = ["sword", "axe", "mace", "spear", "bow", "crossbow"]
 valid_armors = ["leather", "chainmail", "plate"]
 
 # define the prompt
-character_maker = guidance("""The following is a character profile for an RPG game in JSON format.
+character_maker = guidance(
+    """The following is a character profile for an RPG game in JSON format.
 ```json
 {
     "id": "{{id}}",
@@ -162,23 +177,25 @@ character_maker = guidance("""The following is a character profile for an RPG ga
     "skill_5":"{{gen 'skill_5' temperature=1.5 stop=[',','"']}}",
     "race":"{{gen 'race' temperature=1.5 stop=[',','"']}}",
     "most_hated_races":"{{gen 'race' temperature=0.1 stop=[',','"']}}"
-}```""")
+}```"""
+)
 
 # generate a character
-result =character_maker(
+result = character_maker(
     id="e1f491f7-7ab8-4dac-8c20-c92b5e7d883d",
     description="A quick and nimble archer.",
-    valid_weapons=valid_weapons, 
+    valid_weapons=valid_weapons,
     valid_armors=valid_armors,
-    llm=llm
+    llm=llm,
 )
 
 # %%
-result["race"].strip("\"")
+result["race"].strip('"')
 
 # %%
 yes_no = ["Yes", "No"]
-program=guidance("""Problem: You have a database of tweets. The objective is to find the 5 most liked genre of music.
+program = guidance(
+    """Problem: You have a database of tweets. The objective is to find the 5 most liked genre of music.
 You can iteratively suggest keywords used to search the tweets database and then perform considerations \
 about continoung or stopping.
 Keyword 1 : <music>.
@@ -221,16 +238,14 @@ Ninth Suggestion: <{{gen 'keyword' temperature=0.1 stop='>'}}>
 Tenth Suggestion: <{{gen 'keyword' temperature=0.1 stop='>'}}>
 Which is the best in your opinion? <{{gen 'keyword' temperature=0.1 stop='>'}}>. Why? <{{gen 'keyword' temperature=0.1 stop='>'}}>
 Give a detailed explanation. <{{gen 'keyword' temperature=0.1 stop='>'}}>
-""")
+"""
+)
 program(yes_no=yes_no)
 
 # %%
-documents = docsearch.search("music, genre, artist", search_type="similarity",  k=20)
-texts =[document.page_content for document in documents]
+documents = docsearch.search("music, genre, artist", search_type="similarity", k=20)
+texts = [document.page_content for document in documents]
 for i in range(len(texts)):
     print(f"{i+1}. {texts[i]}")
     if i > 5:
         break
-    
-
-

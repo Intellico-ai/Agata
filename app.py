@@ -16,7 +16,7 @@ from sklearn.manifold import TSNE
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from lib import metrics
+from src import metrics
 
 # Parameters
 chroma_collection = "Tweets"

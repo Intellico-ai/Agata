@@ -3,7 +3,7 @@ meta:
 
 tasks:
     
-    - source: scripts/get/txt_to_parquet.ipynb
+    - source: scripts/get/txt_to_parquet.py
       upstream: []
       name: txt_to_parquet
       product: 
@@ -12,7 +12,7 @@ tasks:
       params:
         file_paths: ["data/Cheng-Caverlee-Lee/training_set_tweets.txt", "data/Cheng-Caverlee-Lee/test_set_tweets.txt"]
     
-    - source: script/get/create_chroma_db.ipynb
+    - source: scripts/get/create_chroma_db.py
       upstream: [txt_to_parquet]
       name: create_chroma_db
       product:
@@ -25,12 +25,12 @@ tasks:
         BATCH_SIZE: 512
         LIMIT: 1000000
     
-    - source: scripts/exploration/explore_tweets.ipynb
+    - source: scripts/exploration/explore_tweets.py
       upstream: [txt_to_parquet]
       product:
         nb: product/exploration/explore_tweets.ipynb
     
-    - source: scripts/exploration/rag_tweet.ipynb
+    - source: scripts/exploration/rag_tweet.py
       upstream: [txt_to_parquet]
       name: rag_tweet
       product:
