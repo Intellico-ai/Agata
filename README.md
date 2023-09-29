@@ -13,7 +13,12 @@ The tool enhances data analytics for artist communities; its engine can handle i
 - **Conversational interaction** in queries and reporting
 
 ## How does it work
-Something about architecture, database, similarity engine, sentiment analysis engine, topic discovery engine.
+AGATA is composed on a variety of engines:
+- **Search Engine**:This module is used to embed a query and find the best answers from a database, base on a similarity measure.
+- **Sentiment Analysis**: This module is used to perform sentiment consideration on returned data.
+- **Topic Extraction Engine**: This module is used to understand the content of the database, allowing flexible and interpretable queries
+- **Discovery Engine**: An engine used perform tasks like social listening. It will connect to social netowrk APIs or it will interface with local data. Not Implemented Yet.
+![LogicalArchitecture](images/logical_architecture.png)
 
 ## Try our demo!
 Our demo allows you to query a database of 1 Million tweets. As you can see, you just need to add some keywords or a question, and a relevant list of tweets is returned. Every tweet has associated a sentiment and a topic from a topic list previously fed by the user. 
@@ -52,3 +57,10 @@ For the demo, we are using the [Cheng-Caverlee-Lee Tweets dataset](https://archi
 
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+### Potential Next steps
+- [ ] Integrazione OpenAi
+- [ ] Aggiungere API tweeter
+- [ ] Aggiungere API Reddit
+- [ ] Interfaccia Grafica Interattiva
+- [ ] Multimodality (Image2Text etc)
