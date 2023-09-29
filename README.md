@@ -17,7 +17,7 @@ AGATA is composed on a variety of engines:
 - **Search Engine**:This module is used to embed a query and find the best answers from a database, base on a similarity measure.
 - **Sentiment Analysis**: This module is used to perform sentiment consideration on returned data.
 - **Topic Extraction Engine**: This module is used to understand the content of the database, allowing flexible and interpretable queries
-- **Discovery Engine**: An engine used perform tasks like social listening. It will connect to social netowrk APIs or it will interface with local data. Not Implemented Yet.
+- **Discovery Engine**: An engine used perform tasks like social listening. It will connect to social netowrk APIs. Not Implemented Yet.
 ![LogicalArchitecture](images/logical_architecture.png)
 
 ## Try our demo!
@@ -59,8 +59,7 @@ For the demo, we are using the [Cheng-Caverlee-Lee Tweets dataset](https://archi
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ### Potential Next steps
-- [ ] Integrazione OpenAi
-- [ ] Aggiungere API tweeter
-- [ ] Aggiungere API Reddit
-- [ ] Interfaccia Grafica Interattiva
+- [ ] LLM Integration (local or OpenAI)
+- [ ] Social Network API interaction
+- [ ] Interactive GUI
 - [ ] Multimodality (Image2Text etc)
